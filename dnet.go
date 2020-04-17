@@ -261,7 +261,7 @@ func parseAddr(addr string) (network, address string) {
 	if strings.Contains(address, "://") {
 		parts := strings.Split(address, "://")
 		network = parts[0]
-		network = parts[1]
+		address = parts[1]
 	}
 	return
 }

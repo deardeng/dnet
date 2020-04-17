@@ -1,9 +1,13 @@
 package dnet
 
-import "golang.org/x/sys/unix"
+import (
+	"golang.org/x/sys/unix"
+	"log"
+)
 
 func (svr *server) acceptNewConnection(fd int) error {
 	nfd, sa, err := unix.Accept(fd)
+	log.Println("accept...")
 	if err != nil {
 		if err != unix.EAGAIN {
 			return nil

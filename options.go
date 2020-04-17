@@ -59,7 +59,7 @@ func WithMulticore(multicore bool) Option {
 }
 
 // WithLoadBalancing sets up the load-balancing algorithm in dnet server.
-func WithLoadBalancing(lb LoadBlancing) Option {
+func WithLoadBalancing(lb LoadBalancing) Option {
 	return func(opts *Options) {
 		opts.LB = lb
 	}

@@ -1,6 +1,8 @@
 package dnet
 
-import "dnet/internal/netpoll"
+import (
+	"dnet/internal/netpoll"
+)
 
 func (svr *server) activateMainReactor() {
 	defer svr.signalShutdown()

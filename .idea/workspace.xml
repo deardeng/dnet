@@ -2,31 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ab2772c-b2ae-44ae-8166-77263a8e0ffb" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/acceptor_unix.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/codec.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/errors.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/math.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/netpoll/epoll.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/netpoll/epoll_events.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/netpoll/netpoll_unix.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/netpoll/socktoaddr.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/queue.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/spinlock.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/listener_unix.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/loop_linux.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pool/bytebuffer/bytebuffer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pool/ringbuffer/ringbuffer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/reactor_linux.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ringbuffer/ring_buffer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/examples/echo_tcp/echo.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/connection_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/acceptor_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/acceptor_unix.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dnet.go" beforeDir="false" afterPath="$PROJECT_DIR$/dnet.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventloop_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/eventloop_unix.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/load_balancing.go" beforeDir="false" afterPath="$PROJECT_DIR$/load_balancing.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/server_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/options.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reactor_linux.go" beforeDir="false" afterPath="$PROJECT_DIR$/reactor_linux.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +39,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="GO_FMT" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="configurable.Global.GOPATH.is.expanded" value="true" />
@@ -67,7 +49,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build dnet/examples/echo_tcp">
     <configuration name="go build dnet" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="dnet" />
       <working_directory value="$PROJECT_DIR$" />
@@ -76,8 +58,18 @@
       <package value="dnet" />
       <method v="2" />
     </configuration>
+    <configuration name="go build dnet/examples/echo_tcp" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="dnet" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/examples/echo_tcp/echo.go" />
+      <package value="dnet/examples/echo_tcp" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build dnet/examples/echo_tcp" />
         <item itemvalue="Go Build.go build dnet" />
       </list>
     </recent_temporary>
@@ -85,11 +77,19 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="base." />
+    <option name="LAST_COMMIT_MESSAGE" value="base." />
+  </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>https://goproxy.cn</proxy>
   </component>
   <component name="WindowStateProjectService">
+    <state x="297" y="27" width="835" height="873" key="CommitChangelistDialog2" timestamp="1587106124540">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="297" y="27" width="835" height="873" key="CommitChangelistDialog2/0.27.1440.873@0.27.1440.873" timestamp="1587106124540" />
     <state x="100" y="125" width="1240" height="675" key="DiffContextDialog" timestamp="1586744371133">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
@@ -98,22 +98,38 @@
       <screen x="0" y="27" width="1440" height="873" />
     </state>
     <state x="352" y="222" width="725" height="480" key="EditFileWatcherDialog/0.27.1440.873@0.27.1440.873" timestamp="1586492633400" />
-    <state width="1386" height="209" key="GridCell.Tab.0.bottom" timestamp="1586492638017">
+    <state width="1386" height="262" key="GridCell.Tab.0.bottom" timestamp="1587114928728">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state width="1386" height="209" key="GridCell.Tab.0.bottom/0.27.1440.873@0.27.1440.873" timestamp="1586492638017" />
-    <state width="1386" height="209" key="GridCell.Tab.0.center" timestamp="1586492638015">
+    <state width="1386" height="262" key="GridCell.Tab.0.bottom/0.27.1440.873@0.27.1440.873" timestamp="1587114928728" />
+    <state width="1386" height="262" key="GridCell.Tab.0.center" timestamp="1587114928728">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state width="1386" height="209" key="GridCell.Tab.0.center/0.27.1440.873@0.27.1440.873" timestamp="1586492638015" />
-    <state width="1386" height="209" key="GridCell.Tab.0.left" timestamp="1586492638014">
+    <state width="1386" height="262" key="GridCell.Tab.0.center/0.27.1440.873@0.27.1440.873" timestamp="1587114928728" />
+    <state width="1386" height="262" key="GridCell.Tab.0.left" timestamp="1587114928727">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state width="1386" height="209" key="GridCell.Tab.0.left/0.27.1440.873@0.27.1440.873" timestamp="1586492638014" />
-    <state width="1386" height="209" key="GridCell.Tab.0.right" timestamp="1586492638016">
+    <state width="1386" height="262" key="GridCell.Tab.0.left/0.27.1440.873@0.27.1440.873" timestamp="1587114928727" />
+    <state width="1386" height="262" key="GridCell.Tab.0.right" timestamp="1587114928728">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state width="1386" height="209" key="GridCell.Tab.0.right/0.27.1440.873@0.27.1440.873" timestamp="1586492638016" />
+    <state width="1386" height="262" key="GridCell.Tab.0.right/0.27.1440.873@0.27.1440.873" timestamp="1587114928728" />
+    <state width="1386" height="262" key="GridCell.Tab.1.bottom" timestamp="1587114929397">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state width="1386" height="262" key="GridCell.Tab.1.bottom/0.27.1440.873@0.27.1440.873" timestamp="1587114929397" />
+    <state width="1386" height="262" key="GridCell.Tab.1.center" timestamp="1587114929396">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state width="1386" height="262" key="GridCell.Tab.1.center/0.27.1440.873@0.27.1440.873" timestamp="1587114929396" />
+    <state width="1386" height="262" key="GridCell.Tab.1.left" timestamp="1587114929395">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state width="1386" height="262" key="GridCell.Tab.1.left/0.27.1440.873@0.27.1440.873" timestamp="1587114929395" />
+    <state width="1386" height="262" key="GridCell.Tab.1.right" timestamp="1587114929397">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state width="1386" height="262" key="GridCell.Tab.1.right/0.27.1440.873@0.27.1440.873" timestamp="1587114929397" />
     <state x="201" y="97" key="SettingsEditor" timestamp="1587105854523">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
@@ -122,10 +138,18 @@
       <screen x="0" y="27" width="1440" height="873" />
     </state>
     <state x="586" y="92" width="257" height="741" key="VCS.ChangeListViewerDialog/0.27.1440.873@0.27.1440.873" timestamp="1586744383057" />
-    <state x="315" y="197" width="800" height="531" key="Vcs.Push.Dialog.v2" timestamp="1587106089177">
+    <state x="315" y="197" width="800" height="531" key="Vcs.Push.Dialog.v2" timestamp="1587106132764">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state x="315" y="197" width="800" height="531" key="Vcs.Push.Dialog.v2/0.27.1440.873@0.27.1440.873" timestamp="1587106089177" />
+    <state x="315" y="197" width="800" height="531" key="Vcs.Push.Dialog.v2/0.27.1440.873@0.27.1440.873" timestamp="1587106132764" />
+    <state x="253" y="130" width="923" height="664" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1587114913946">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="253" y="130" width="923" height="664" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.27.1440.873@0.27.1440.873" timestamp="1587114913946" />
+    <state x="0" y="27" width="696" height="873" key="find.popup" timestamp="1587114820519">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="0" y="27" width="696" height="873" key="find.popup/0.27.1440.873@0.27.1440.873" timestamp="1587114820519" />
     <state x="383" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1586937468853">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
