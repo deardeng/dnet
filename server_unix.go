@@ -1,6 +1,8 @@
 package dnet
 
 import (
+	"dnet/internal/netpoll"
+	"runtime"
 	"sync"
 	"time"
 )
@@ -69,8 +71,170 @@ func (svr *server) activateLoops(numEventLoop int) error {
 	// Create loops locally and bind the listeners.
 	for i := 0; i < numEventLoop; i++ {
 		if p, err := netpoll.OpenPoller(); err == nil {
-			el := &eventloop{}
-
+			el := &eventloop{
+				idx:          i,
+				svr:          svr,
+				codec:        svr.codec,
+				poller:       p,
+				packet:       make([]byte, 0x10000),
+				connections:  make(map[int]*conn),
+				eventHandler: svr.eventHandler,
+			}
+			_ = el.poller.AddRead(svr.ln.fd)
+			svr.subLoopGroup.register(el)
+		} else {
+			return err
 		}
 	}
+	svr.subLoopGroupSize = svr.subLoopGroup.len()
+	// Start loops in background
+	svr.startLoops()
+	return nil
+}
+
+func (svr *server) activateReactors(numEventLoop int) error {
+	for i := 0; i < numEventLoop; i++ {
+		if p, err := netpoll.OpenPoller(); err != nil {
+			el := &eventloop{
+				idx:    i,
+				svr:    svr,
+				codec:  svr.codec,
+				poller: p,
+				// 64k
+				packet:       make([]byte, 0x10000),
+				connections:  make(map[int]*conn),
+				eventHandler: svr.eventHandler,
+			}
+			svr.subLoopGroup.register(el)
+		} else {
+			return err
+		}
+	}
+	svr.subLoopGroupSize = svr.subLoopGroup.len()
+	// Start sub reactors.
+	svr.startReactors()
+
+	if p, err := netpoll.OpenPoller(); err == nil {
+		el := &eventloop{
+			idx:    -1,
+			poller: p,
+			svr:    svr,
+		}
+		_ = el.poller.AddRead(svr.ln.fd)
+		svr.mainLoop = el
+		// Start main reactor.
+		svr.wg.Add(1)
+		go func() {
+			svr.activateMainReactor()
+			svr.wg.Done()
+		}()
+	} else {
+		return err
+	}
+	return nil
+}
+
+func (svr *server) start(numEventLoop int) error {
+	if svr.opts.ReusePort || svr.ln.pconn != nil {
+		return svr.activateLoops(numEventLoop)
+	}
+	return svr.activateReactors(numEventLoop)
+}
+
+func (svr *server) stop() {
+	// Wait on a signal for shutdown
+	svr.waitForShutdown()
+
+	// Notify all loops to close by closing all listeners
+	svr.subLoopGroup.iterate(func(i int, el *eventloop) bool {
+		sniffError(el.poller.Trigger(func() error {
+			return ErrServerShutdown
+		}))
+		return true
+	})
+
+	if svr.mainLoop != nil {
+		svr.ln.close()
+		sniffError(svr.mainLoop.poller.Trigger(func() error {
+			return ErrServerShutdown
+		}))
+	}
+
+	// Wait on all loops to complete reading events
+	svr.wg.Wait()
+
+	// Close loops and all outstanding connections
+	svr.subLoopGroup.iterate(func(i int, el *eventloop) bool {
+		for _, c := range el.connections {
+			sniffError(el.loopCloseConn(c, nil))
+		}
+		return true
+	})
+	svr.closeLoops()
+
+	if svr.mainLoop != nil {
+		sniffError(svr.mainLoop.poller.Close())
+	}
+}
+
+func serve(eventHandler EventHandler, listener *listener, options *Options) error {
+	// Figure out the correct number of loops/goroutines to use.
+	numEventLoop := 1
+	if options.Multicore {
+		numEventLoop = runtime.NumCPU()
+	}
+	if options.NumEventLoop > 0 {
+		numEventLoop = options.NumEventLoop
+	}
+
+	svr := new(server)
+	svr.opts = options
+	svr.eventHandler = eventHandler
+	svr.ln = listener
+
+	switch options.LB {
+	case RoundRobin:
+		svr.subLoopGroup = new(roundRobinEventLoopGroup)
+	case LeastConnections:
+		svr.subLoopGroup = new(leastConnectionsEventLoopGroup)
+	case SourceAddrHash:
+		svr.subLoopGroup = new(sourceAddrHashEventLoopGroup)
+	}
+
+	svr.cond = sync.NewCond(&sync.Mutex{})
+	svr.ticktock = make(chan time.Duration, 1)
+	svr.logger = func() Logger {
+		if options.Logger == nil {
+			return defaultLogger
+		}
+		return options.Logger
+	}()
+	svr.codec = func() ICodec {
+		if options.Codec == nil {
+			return new(BuiltInFrameCodec)
+		}
+		return options.Codec
+	}()
+
+	server := Server{
+		svr:          svr,
+		Multicore:    options.Multicore,
+		Addr:         listener.lnaddr,
+		NumEventLoop: numEventLoop,
+		ReusePort:    options.ReusePort,
+		TCPKeepAlive: options.TCPKeepAlive,
+	}
+	switch svr.eventHandler.OnInitComplete(server) {
+	case None:
+	case Shutdown:
+		return nil
+	}
+	if err := svr.start(numEventLoop); err != nil {
+		svr.closeLoops()
+		svr.logger.Printf("dnet server is stopping with error: %v\n", err)
+		return err
+	}
+	defer svr.stop()
+
+	return nil
 }

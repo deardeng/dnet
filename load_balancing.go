@@ -20,6 +20,7 @@ type (
 		register(*eventloop)
 		next(int) *eventloop
 		iterate(func(int, *eventloop) bool)
+		len() int
 	}
 
 	// roundRobinEventLoopGroup with RoundRobin algorithm.
@@ -79,7 +80,7 @@ func (g *leastConnectionsEventLoopGroup) next(_ int) (el *eventloop) {
 		curConnCount int32
 	)
 	for _, curEventLoop = range eventLoops[1:] {
-		if curEventLoop = curEventLoop.loadConnCount(); curConnCount < leastConnCount {
+		if curConnCount = curEventLoop.loadConnCount(); curConnCount < leastConnCount {
 			leastConnCount = curConnCount
 			el = curEventLoop
 		}

@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0ab2772c-b2ae-44ae-8166-77263a8e0ffb" name="默认更改列表" comment="" />
+    <list default="true" id="0ab2772c-b2ae-44ae-8166-77263a8e0ffb" name="默认更改列表" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/acceptor_unix.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/codec.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/errors.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/math.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/netpoll/epoll.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/netpoll/epoll_events.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/netpoll/netpoll_unix.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/netpoll/socktoaddr.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/queue.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/spinlock.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/listener_unix.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/loop_linux.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pool/bytebuffer/bytebuffer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pool/ringbuffer/ringbuffer.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/reactor_linux.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ringbuffer/ring_buffer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/connection_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dnet.go" beforeDir="false" afterPath="$PROJECT_DIR$/dnet.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eventloop_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/eventloop_unix.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/load_balancing.go" beforeDir="false" afterPath="$PROJECT_DIR$/load_balancing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server_unix.go" beforeDir="false" afterPath="$PROJECT_DIR$/server_unix.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,10 +41,16 @@
     </option>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="ProjectId" id="1aKjTidPqdeJ34qeSAuBPvx5Fgz" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="添加" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -33,7 +65,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunManager">
     <configuration name="go build dnet" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
@@ -58,6 +90,10 @@
     <proxy>https://goproxy.cn</proxy>
   </component>
   <component name="WindowStateProjectService">
+    <state x="100" y="125" width="1240" height="675" key="DiffContextDialog" timestamp="1586744371133">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="100" y="125" width="1240" height="675" key="DiffContextDialog/0.27.1440.873@0.27.1440.873" timestamp="1586744371133" />
     <state x="352" y="222" width="725" height="480" key="EditFileWatcherDialog" timestamp="1586492633400">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
@@ -78,9 +114,21 @@
       <screen x="0" y="27" width="1440" height="873" />
     </state>
     <state width="1386" height="209" key="GridCell.Tab.0.right/0.27.1440.873@0.27.1440.873" timestamp="1586492638016" />
-    <state x="201" y="97" key="SettingsEditor" timestamp="1586500394903">
+    <state x="201" y="97" key="SettingsEditor" timestamp="1587105854523">
       <screen x="0" y="27" width="1440" height="873" />
     </state>
-    <state x="201" y="97" key="SettingsEditor/0.27.1440.873@0.27.1440.873" timestamp="1586500394903" />
+    <state x="201" y="97" key="SettingsEditor/0.27.1440.873@0.27.1440.873" timestamp="1587105854523" />
+    <state x="586" y="92" width="257" height="741" key="VCS.ChangeListViewerDialog" timestamp="1586744383057">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="586" y="92" width="257" height="741" key="VCS.ChangeListViewerDialog/0.27.1440.873@0.27.1440.873" timestamp="1586744383057" />
+    <state x="315" y="197" width="800" height="531" key="Vcs.Push.Dialog.v2" timestamp="1587106089177">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="315" y="197" width="800" height="531" key="Vcs.Push.Dialog.v2/0.27.1440.873@0.27.1440.873" timestamp="1587106089177" />
+    <state x="383" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1586937468853">
+      <screen x="0" y="27" width="1440" height="873" />
+    </state>
+    <state x="383" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1440.873@0.27.1440.873" timestamp="1586937468853" />
   </component>
 </project>
