@@ -94,7 +94,7 @@ func (svr *server) activateLoops(numEventLoop int) error {
 
 func (svr *server) activateReactors(numEventLoop int) error {
 	for i := 0; i < numEventLoop; i++ {
-		if p, err := netpoll.OpenPoller(); err != nil {
+		if p, err := netpoll.OpenPoller(); err == nil {
 			el := &eventloop{
 				idx:    i,
 				svr:    svr,
